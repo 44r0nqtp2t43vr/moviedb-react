@@ -12,10 +12,9 @@ function App() {
   return (
     <MovieContext.Provider value={movieList}>
       <AppWrapper>
-        <div>
-          <h1>Movies 'R' Us</h1>
-        </div>
+        <h1>Movies 'R' Us</h1>
         <MovieMenu></MovieMenu>
+        
       </AppWrapper>
     </MovieContext.Provider>
   )
