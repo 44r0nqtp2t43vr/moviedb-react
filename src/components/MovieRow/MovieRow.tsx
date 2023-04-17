@@ -1,22 +1,30 @@
+import type { ComponentPropsWithoutRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Movie } from "../../models";
+import { Button, ButtonCell, CenteredCell, Row } from "./MovieRow.styled";
 
-export const MovieRow = (movie: Movie) => {
+interface RowProps extends ComponentPropsWithoutRef<"tr"> {
+    isGrey: boolean;
+    movie: Movie;
+}
+  
+
+export const MovieRow = ({isGrey, movie}: RowProps) => {
     const navigate = useNavigate();
     function handleClick(id: number) {
         navigate("/movie/detail/" + id);
     }
 
     return (
-        <tr>
-            <td>{movie.mov_id}</td>
+        <Row isGrey={isGrey}>
+            <CenteredCell>{movie.mov_id}</CenteredCell>
             <td>{movie.mov_title}</td>
-            <td>{movie.mov_year}</td>
-            <td>{movie.mov_time}</td>
-            <td>{movie.mov_lang}</td>
-            <td>{movie.mov_dt_rel}</td>
-            <td>{movie.mov_rel_country}</td>
-            <td><button onClick={() => handleClick(movie.mov_id)}>Movie Details</button></td>
-        </tr>
+            <CenteredCell>{movie.mov_year}</CenteredCell>
+            <CenteredCell>{movie.mov_time}</CenteredCell>
+            <CenteredCell>{movie.mov_lang}</CenteredCell>
+            <CenteredCell>{movie.mov_dt_rel}</CenteredCell>
+            <CenteredCell>{movie.mov_rel_country}</CenteredCell>
+            <ButtonCell><Button onClick={() => handleClick(movie.mov_id)}>Movie Details</Button></ButtonCell>
+        </Row>
     );
 }

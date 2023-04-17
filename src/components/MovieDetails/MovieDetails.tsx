@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { MovieContext } from "../../contexts/MovieContext";
 import { useNavigate, useParams } from 'react-router-dom';
+import { Button, ButtonWrapper, Header, Row, Table, Title, Wrapper } from "../MovieDetails";
 
 export const MovieDetails = () => {
     const movieList = useContext(MovieContext);
@@ -12,43 +13,43 @@ export const MovieDetails = () => {
     }
 
     return (
-        <>
-            <h1>Movie Information</h1>
-            <table>
-                <tr>
-                    <th>Movie Title:</th>
+        <Wrapper>
+            <Title>Movie Information</Title>
+            <Table>
+                <Row>
+                    <Header>Movie Title:</Header>
                     <td>{movie[0].mov_title}</td>
-                </tr>
-                <tr>
-                    <th>Year:</th>
+                </Row>
+                <Row>
+                    <Header>Year:</Header>
                     <td>{movie[0].mov_year}</td>
-                </tr>
-                <tr>
-                    <th>Running Time:</th>
+                </Row>
+                <Row>
+                    <Header>Running Time:</Header>
                     <td>{movie[0].mov_time} minutes</td>
-                </tr>
-                <tr>
-                    <th>Directed By:</th>
+                </Row>
+                <Row>
+                    <Header>Directed By:</Header>
                     <td>Alfred Hitchcock</td>
-                </tr>
-                <tr>
-                    <th>Starring:</th>
+                </Row>
+                <Row>
+                    <Header>Starring:</Header>
                     <td>James Stewart - John Scottie Ferguson</td>
-                </tr>
-                <tr>
-                    <th>Genre:</th>
+                </Row>
+                <Row>
+                    <Header>Genre:</Header>
                     <td>Mystery</td>
-                </tr>
-                <tr>
-                    <th>Rating:</th>
+                </Row>
+                <Row>
+                    <Header>Rating:</Header>
                     <td>Righty Sock</td>
-                </tr>
-                <tr>
-                    <th>Score:</th>
+                </Row>
+                <Row>
+                    <Header>Score:</Header>
                     <td>8 stars</td>
-                </tr>
-            </table>
-            <button onClick={() => handleClick()}>Go Back to List</button>
-        </>
+                </Row>
+            </Table>
+            <ButtonWrapper><Button onClick={() => handleClick()}>Go Back to List</Button></ButtonWrapper>
+        </Wrapper>
     );
 }
