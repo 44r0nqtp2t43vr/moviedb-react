@@ -7,7 +7,6 @@ interface RowProps extends ComponentPropsWithoutRef<"tr"> {
     isGrey: boolean;
     movie: Movie;
 }
-  
 
 export const MovieRow = ({isGrey, movie}: RowProps) => {
     const navigate = useNavigate();

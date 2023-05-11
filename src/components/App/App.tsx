@@ -12,6 +12,7 @@ import { MovieMenu } from '../MovieMenu';
 
 import { AppWrapper } from './App.styled';
 import { MovieDetails } from '../MovieDetails';
+import { Movie } from '../../models';
 
 const baseURL = 'http://127.0.0.1:8003/movies?page=1'
 
