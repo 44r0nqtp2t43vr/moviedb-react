@@ -30,7 +30,7 @@ export const MovieMenu = () => {
                         <th></th>
                     </Header>
                     {movieList.slice(pageIndex * 10, pageIndex * 10 + 10).map((data, index) => (
-                        <MovieRow key={index} isGrey={index % 2 == 0 ? false : true} movie={data} />
+                        <MovieRow key={data.mov_id} isGrey={index % 2 == 0 ? false : true} movie={data} />
                     ))}
                 </Table>}
             </div>

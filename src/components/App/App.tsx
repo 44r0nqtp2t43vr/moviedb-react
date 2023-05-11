@@ -1,4 +1,5 @@
-import { useReducer } from 'react';
+import axios from 'axios';
+import { useEffect, useReducer, useState } from 'react';
 import {
   BrowserRouter,
   Route,
@@ -12,8 +13,18 @@ import { MovieMenu } from '../MovieMenu';
 import { AppWrapper } from './App.styled';
 import { MovieDetails } from '../MovieDetails';
 
+const baseURL = 'http://127.0.0.1:8003/movies?page=1'
+
 function App() {
-  const [movieList, dispatch] = useReducer(movieReducer, initialMovieList);
+  // const [movieList, dispatch] = useReducer(movieReducer, initialMovieList);
+  const [movieList, setMovieList] = useState([]);
+
+  useEffect(() => {
+    axios.get(baseURL).then((response) => {
+      console.log(response.data);
+      setMovieList(response.data.data);
+    });
+  }, []);
 
   return (
     <MovieContext.Provider value={movieList}>
