@@ -1,16 +1,27 @@
-import { useState, useContext } from "react";
+import axios from 'axios';
+import { useState, useContext, useEffect } from "react";
 import { MovieContext } from "../../contexts/MovieContext";
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button, ButtonWrapper, Header, Row, Table, Title, Wrapper } from "../MovieDetails";
 
+const baseURL = 'http://127.0.0.1:8003/movie/detail'
+
 export const MovieDetails = () => {
-    const movieList = useContext(MovieContext);
+    // const movieList = useContext(MovieContext);
     const { id } = useParams()
-    const movie = movieList.filter(movieList => movieList.mov_id == Number(id));
+    // const movie = movieList.filter(movieList => movieList.mov_id == Number(id));
+    const [movie, setMovie] = useState<any>([]);
     const navigate = useNavigate();
     function handleClick() {
         navigate("/movies");
     }
+
+    useEffect(() => {
+        axios.get(`${baseURL}/${id}`).then((response) => {
+          console.log(response.data);
+          setMovie(response.data);
+        });
+      }, []);
 
     return (
         <Wrapper>
@@ -18,35 +29,43 @@ export const MovieDetails = () => {
             <Table>
                 <Row>
                     <Header>Movie Title:</Header>
-                    <td>{movie[0].mov_title}</td>
+                    <td>{movie.title}</td>
                 </Row>
                 <Row>
                     <Header>Year:</Header>
-                    <td>{movie[0].mov_year}</td>
+                    <td>{movie.year}</td>
                 </Row>
                 <Row>
                     <Header>Running Time:</Header>
-                    <td>{movie[0].mov_time} minutes</td>
+                    <td>{movie.time} minutes</td>
                 </Row>
                 <Row>
                     <Header>Directed By:</Header>
-                    <td>Alfred Hitchcock</td>
+                    <td>
+                        {movie.directors?.map((director: any, index: number) => (
+                            index != movie.directors.length - 1 ? `${director.dir_fname} ${director.dir_lname},` : `${director.dir_fname} ${director.dir_lname}`
+                        ))}
+                    </td>
                 </Row>
                 <Row>
                     <Header>Starring:</Header>
-                    <td>James Stewart - John Scottie Ferguson</td>
+                    <td>{movie.actors ? movie.actors[0].act_fname : ''} {movie.actors ? movie.actors[0].act_lname : ''} - {movie.actors ? movie.actors[0].pivot.role : ''}</td>
                 </Row>
                 <Row>
                     <Header>Genre:</Header>
-                    <td>Mystery</td>
+                    <td>
+                        {movie.genres?.length == 0 ? 'N/A' : movie.genres?.map((genre: any, index: number) => (
+                            index != movie.genres.length - 1 ? `${genre.gen_title},` : `${genre.gen_title}`
+                        ))}
+                    </td>
                 </Row>
                 <Row>
                     <Header>Rating:</Header>
-                    <td>Righty Sock</td>
+                    <td>{movie.reviewers && movie.reviewers[0]?.rev_name ? movie.reviewers[0]?.rev_name : 'N/A'}</td>
                 </Row>
                 <Row>
                     <Header>Score:</Header>
-                    <td>8 stars</td>
+                    <td>{movie.reviewers && movie.reviewers[0]?.pivot?.rev_stars ? `${movie.reviewers[0]?.pivot?.rev_stars} stars` : 'N/A'}</td>
                 </Row>
             </Table>
             <ButtonWrapper><Button onClick={() => handleClick()}>Go Back to List</Button></ButtonWrapper>
