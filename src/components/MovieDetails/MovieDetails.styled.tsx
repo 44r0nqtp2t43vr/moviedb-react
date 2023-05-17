@@ -23,8 +23,17 @@ export const Row = styled.tr`
     height: 50px;
 `;
 
-export const Header = styled.tr`
-    text-align: left;
+export const Header = styled.td`
+    height: 50px;
+    width: 128px;
+`;
+
+export const BoldCell = styled.td`
+    font-weight: 600;
+`;
+
+export const IndentedCell = styled.td`
+    padding-left: 20px;
 `;
 
 export const ButtonWrapper = styled.div`

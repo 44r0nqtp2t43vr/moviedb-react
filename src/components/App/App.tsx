@@ -17,8 +17,14 @@ import { Movie } from '../../models';
 const baseURL = 'http://127.0.0.1:8003/movies'
 
 function App() {
-  // const [movieList, dispatch] = useReducer(movieReducer, initialMovieList);
   const [movieList, setMovieList] = useState([]);
+  const [pageIndex, setPageIndex] = useState(0);
+
+  function handleClick(newPageIndex: number) {
+    if (newPageIndex >= 0 && newPageIndex <= Math.floor(movieList.length / 10)) {
+        setPageIndex(newPageIndex);
+    }
+  }
 
   useEffect(() => {
     axios.get(baseURL).then((response) => {
@@ -32,7 +38,7 @@ function App() {
       <AppWrapper>
         <BrowserRouter>
         <Routes>
-          <Route path="/movies" element={<MovieMenu />} />
+          <Route path="/movies" element={<MovieMenu pageIndex={pageIndex} handleClick={handleClick} />} />
           <Route path="/movie/detail/:id" element={<MovieDetails />} />
         </Routes>
       </BrowserRouter>

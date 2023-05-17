@@ -15,7 +15,7 @@ export const MovieRow = ({isGrey, movie}: RowProps) => {
     }
 
     return (
-        <Row isGrey={isGrey}>
+        <Row key={movie.mov_id} isGrey={isGrey}>
             <CenteredCell>{movie.mov_id}</CenteredCell>
             <td>{movie.mov_title}</td>
             <CenteredCell>{movie.mov_year}</CenteredCell>
